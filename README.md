@@ -31,8 +31,6 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📸 Demo Walkthrough
 
-Describe your fixed game in numbered steps so a reader can follow along without watching a video:
-
 1. Change the difficulty to whatever you wish via the sidebar (use "Easy" for quick testing.)
 2. Enter a guess of 10.
 3. If hints were enabled, you should be directed to go higher or lower.
@@ -81,7 +79,3 @@ tests/test_game_logic.py::test_update_score_no_change_on_invalid_outcome PASSED 
 ===================== 22 passed in 0.05s =====================
 
 ```
-
-## 🚀 Stretch Features
-
-- [ ] [If you choose to complete Challenge 4, describe the Enhanced UI changes here — a screenshot is optional]
