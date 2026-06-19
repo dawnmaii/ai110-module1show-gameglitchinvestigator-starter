@@ -48,13 +48,13 @@ Document at least 3 bugs you found. Add rows as needed.
 ## 3. Debugging and testing your fixes
 
 - How did you decide whether a bug was really fixed?
-  
+  I had AI explain to me what was used to fix the bug and why, along with clarifying questions to ensure I understood the fix. Then I ran the game again and tested with different inputs to ensure the big fix didn't create more bugs. I tried to do this every few major changes before testing the app as a whole.
 
 - Describe at least one test you ran (manual or using pytest) and what it showed you about your code.
-  
+  I ran the tests testing the check_guess function via pytest on Claude, and Claude actually pointed out a few bugs in both my tests and the code, which I then fixed manually. It showed me that even with AI assistance, code can still be buggy and needs to be manually reviewed.
 
 - Did AI help you design or understand any tests? How?
-  
+  GitHub CoPilot helped me design my tests; after I imported the functions from logic_utils.py, pressing the Tab key automatically gave me potential tests for me to use in validating the I/O of these functions. I reviewed them line-by-line before pressing Tab, it was cool to see. It even gave me cases I never really considered. Typing out test names automatically gave me the recommended code based on the test name.
 
 ---
 
