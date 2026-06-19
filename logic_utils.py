@@ -24,21 +24,22 @@ def parse_guess(raw: str, low: int, high: int):
     return True, value, None
 
 
+# AI FIXED: hint messages were swapped
 def check_guess(guess, secret):
     if guess == secret:
         return "Win", "🎉 Correct!"
     try:
         if guess > secret:
-            return "Too High", "📈 Go HIGHER!"
+            return "Too High", "📉 Go lower!"
         else:
-            return "Too Low", "📉 Go LOWER!"
+            return "Too Low", "📈 Go higher!"
     except TypeError:
         g = str(guess)
         if g == secret:
             return "Win", "🎉 Correct!"
         if g > secret:
-            return "Too High", "📈 Go HIGHER!"
-        return "Too Low", "📉 Go LOWER!"
+            return "Too High", "📉 Go lower!"
+        return "Too Low", "📈 Go higher!"
 
 # AI FIXED: points earned/deducted now corresponds to difficulty settings and attempt number, negative points not possible
 def update_score(current_score: int, outcome: str, attempt_number: int, difficulty: str):

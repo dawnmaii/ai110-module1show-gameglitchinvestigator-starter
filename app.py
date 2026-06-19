@@ -15,7 +15,7 @@ difficulty = st.sidebar.selectbox(
     index=1,
 )
 
-#FIXED: attempt limits correspond to appropriate difficulties
+# FIXED: attempt limits correspond to appropriate difficulties
 attempt_limit_map = {
     "Easy": 10,
     "Normal": 7,
@@ -27,6 +27,15 @@ low, high = get_range_for_difficulty(difficulty)
 
 st.sidebar.caption(f"Range: {low} to {high}")
 st.sidebar.caption(f"Attempts allowed: {attempt_limit}")
+
+# AI FIXED: reset_game function now resets score, attempts, and history; nothing from previous game is saved; refactored
+def reset_game():
+    st.session_state.attempts = 0
+    st.session_state.secret = random.randint(low, high)
+    st.session_state.status = "playing"
+    st.session_state.history = []
+    st.session_state.score = 0
+    st.session_state.last_hint = None
 
 if "secret" not in st.session_state:
     st.session_state.secret = random.randint(low, high)
@@ -44,9 +53,21 @@ if "status" not in st.session_state:
 if "history" not in st.session_state:
     st.session_state.history = []
 
+# AI FIXED: moved if block to before info box render to show 0 attempts left upon game lost
+if st.session_state.status != "playing":
+    if st.session_state.status == "won":
+        st.success("You already won. Start a new game to play again.")
+    else:
+    # AI FIXED: more specific "game over" message
+        st.error(f"Game over. The answer was {st.session_state.secret}. Final score: {st.session_state.score}. Start a new game to try again.")
+    if st.button("New Game 🔁"):
+        reset_game()
+        st.rerun()
+    st.stop()
+
 st.subheader("Make a guess")
 
-#AI FIXED: guess limit corresponds to difficulty
+# AI FIXED: guess limit corresponds to difficulty
 st.info(
     f"Guess a number between {low} and {high}. "
     f"Attempts left: {attempt_limit - st.session_state.attempts}"
@@ -65,23 +86,9 @@ with col2:
 with col3:
     show_hint = st.checkbox("Show Hint 💭", value=True)
 
-# FIXED: new game now resets score, attempts, and history; nothing from previous game is saved
 if new_game:
-    st.session_state.attempts = 0
-    st.session_state.secret = random.randint(1, 100)
-    st.session_state.status = "playing"
-    st.session_state.history = []
-    st.session_state.score = 0
-    st.session_state.last_hint = None
-    st.success("New game started.")
+    reset_game()
     st.rerun()
-
-if st.session_state.status != "playing":
-    if st.session_state.status == "won":
-        st.success("You already won. Start a new game to play again.")
-    else:
-        st.error("Game over. Start a new game to try again.")
-    st.stop()
 
 if submit:
     ok, guess_int, err = parse_guess(raw_guess, low, high)
@@ -90,17 +97,13 @@ if submit:
         st.session_state.history.append(raw_guess)
         st.error(err)
     else:
-        #AI FIXED: attempts only apply to valid guesses
+        # AI FIXED: attempts only apply to valid guesses
         st.session_state.attempts += 1
         st.session_state.history.append(guess_int)
 
-        if st.session_state.attempts % 2 == 0:
-            secret = str(st.session_state.secret)
-        else:
-            secret = st.session_state.secret
-
-        outcome, message = check_guess(guess_int, secret)
-        #AI FIXED: last hint is now stored in session state and only updated on valid guesses
+        # AI FIXED: removed parity check to correctly compare guess to answer
+        outcome, message = check_guess(guess_int, st.session_state.secret)
+        # AI FIXED: last hint is now stored in session state and only updated on valid guesses
         st.session_state.last_hint = message
 
         st.session_state.score = update_score(
@@ -118,13 +121,10 @@ if submit:
                 f"Final score: {st.session_state.score}"
             )
         else:
+            # AI FIXED: use rerun() instead of just showing results for refresh
             if st.session_state.attempts >= attempt_limit:
                 st.session_state.status = "lost"
-                st.error(
-                    f"Out of attempts! "
-                    f"The secret was {st.session_state.secret}. "
-                    f"Score: {st.session_state.score}"
-                )
+                st.rerun()
 
 # AI FIXED: hints are now only shown if the user has chosen to show them, and they are stored in session state to persist across interactions
 if show_hint and "last_hint" in st.session_state:
@@ -133,7 +133,7 @@ if show_hint and "last_hint" in st.session_state:
 st.divider()
 st.caption("Built by an AI that claims this code is production-ready. Re-built by a human to actually claim this.")
 
-#AI FIXED: developer debug info box is moved to the bottom and the answer is removed to avoid cheating
+# AI FIXED: developer debug info box is moved to the bottom and the answer is removed to avoid cheating
 with st.expander("Developer Debug Info"):
     st.write("Attempts:", st.session_state.attempts)
     st.write("Score:", st.session_state.score)

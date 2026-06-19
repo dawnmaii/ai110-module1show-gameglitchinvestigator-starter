@@ -61,16 +61,17 @@ Document at least 3 bugs you found. Add rows as needed.
 ## 4. What did you learn about Streamlit and state?
 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
-  
+  So every time a Streamlit app is active, it is currently in a "session". A Streamlit session state consists of the properties of a given session, for instance what the screen presents at the beginning or what buttons are turned on or off. Properties can change value, or "state" at any given time during the current session. Some of them can "rerun" the session, forcing Streamlit to run the script from top to bottom.
 
 ---
 
 ## 5. Looking ahead: your developer habits
 
 - What is one habit or strategy from this project that you want to reuse in future labs or projects? This could be a testing habit, a prompting strategy, or a way you used Git.
-  
+  One strategy I would like to get into the habit of using is manually going through the code to comment todos, then attempting manual fixes with my working knowledge whenever possible before using AI to "fill in the blanks" and help me reason about how I would fix similar issues in the future or learn about the codebase and the libraries used. I didn't know about Streamlit before, but now I have working knowledge of it and that's pretty cool to me.
 
 - What is one thing you would do differently next time you work with AI on a coding task?
+  I would ask it to go through the codebase initially with me first and ask it clarifying questions on what's being used and why, instead of learning along the way as I fix bugs. I do pride myself in being able to do all this with minimal AI use.
 
-
-- In one or two sentences, describe how this project changed the way you think about AI generated code.
+- In one or two sentences, describe how this project changed the way you think about AI-generated code.
+  It's not as bad as I thought, provided you know what you want to ask and why you're asking said question with what objective. You have to be thorough with your thought process, but at the same time I really don't want to rely on it because it's that powerful. Slightly impressed and scared.

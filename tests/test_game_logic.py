@@ -9,14 +9,14 @@ def test_winning_guess():
     assert result[0] == "Win" and result[1] == "🎉 Correct!"
 
 def test_guess_too_high():
-    # If secret is 50 and guess is 60, hint should be "Go HIGHER!"
+    # If secret is 50 and guess is 60, hint should tell the player to go lower
     result = check_guess(60, 50)
-    assert result[0] == "Too High" and result[1] == "📈 Go HIGHER!"
+    assert result[0] == "Too High" and result[1] == "📉 Go lower!"
 
 def test_guess_too_low():
-    # If secret is 50 and guess is 40, hint should be "Go LOWER!"
+    # If secret is 50 and guess is 40, hint should tell the player to go higher
     result = check_guess(40, 50)
-    assert result[0] == "Too Low" and result[1] == "📉 Go LOWER!"
+    assert result[0] == "Too Low" and result[1] == "📈 Go higher!"
 
 
 # testing get_range_for_difficulty function
