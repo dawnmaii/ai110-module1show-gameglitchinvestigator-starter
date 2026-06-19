@@ -35,13 +35,13 @@ Document at least 3 bugs you found. Add rows as needed.
 ## 2. How did you use AI as a teammate?
 
 - Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
-  
+  I used Claude Code on this project as an extension in VS Code for prompting, and GitHub Copilot's inline suggestions as they arose.
 
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
-  
+  parse_guess originally did not accept low/high parameters to check that the guess was within the given difficulty, and it also accepted decimal values. AI suggested to have parse_guess take in those parameters to check against the guessed value and eliminate the decimal casting entirely. I verified the result by reading through the changed logic line by line since it was simple enough for me to follow.
 
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
-  
+  I asked AI about the bug regarding hints not showing up upon user toggle when a guess had been made, and AI suggested to store the hint message in st.session_state and then move the hint display outside the if submit block so the hint doesn't only show upon submit for a given guess. This was not clear to me at first, since the if submit block also had several branches of logic following it. I verified the result by asking clarifying followup questions and then reading the current code to see where I would put the suggested line myself.
 
 ---
 
